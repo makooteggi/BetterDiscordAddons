@@ -1,0 +1,51 @@
+/**
+ * @name patchy theme better B
+ * @author DevilBro
+ * @version 1.0.5
+ * @description Allows you to use a background image without greatly altering the basic look of Discord.
+ * @source https://raw.githubusercontent.com/mwittrien/BetterDiscordAddons/master/Themes/BasicBackground/BasicBackground.theme.css
+ * @invite Jx3TjNS
+ * @donate https://www.paypal.me/MircoWittrien
+ * @patreon https://www.patreon.com/MircoWittrien
+ * @website https://github.com/mwittrien/BetterDiscordAddons/tree/master/Themes/BasicBackground
+ * @authorId 278543574059057154
+ * @BDEditor BasicBackground
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@100;300;400;500;700&display=swap');
+@import url('https://mwittrien.github.io/BetterDiscordAddons/Themes/BasicBackground/BasicBackground.css');
+
+:root {
+  --background: url('https://i.imgur.com/H8sqfFL.gif');
+  --backgroundsize: cover;
+  --backgroundposition: center;
+  --backgroundblur: 0px;
+  --popout: url('https://i.imgur.com/q38nGrL.jpg');
+  --popoutsize: var(--backgroundsize);
+  --backgroundposition: center;
+  --popoutblur: 0px;
+  --transparencycolor: 34,0,93;
+  --accentcolor: 110,34,173;
+  --backdrop: rgb(86,0,239,0.73);
+  --textshadow: rgb(103,58,183,0.77);
+  --transparencyalpha: 0.76;
+  --messagetransparency: 0.7;
+  --guildchanneltransparency: 0.44;
+  --chatinputtransparency: 0;
+  --memberlisttransparency: 0.2;
+  --font: Edu NSW ACT Foundation;
+  --textbrightest: 142,78,255;
+  --textbrighter: 156,39,176;
+  --textbright: 156,39,176;
+  --textdark: 218,0,255;
+  --textdarker: 156,39,176;
+  --textdarkest: 53,0,145;
+  --settingsicons: 1;
+  --backdropsize: var(--background-size);
+  --backdropblur: 0px;
+  --version1_0_5: none;
+}
+
+/* Any custom CSS below here */
+
+
