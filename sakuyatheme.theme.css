@@ -1,0 +1,51 @@
+/**
+ * @name sakuya theme
+ * @author DevilBro
+ * @version 1.0.5
+ * @description Allows you to use a background image without greatly altering the basic look of Discord.
+ * @source https://raw.githubusercontent.com/mwittrien/BetterDiscordAddons/master/Themes/BasicBackground/BasicBackground.theme.css
+ * @invite Jx3TjNS
+ * @donate https://www.paypal.me/MircoWittrien
+ * @patreon https://www.patreon.com/MircoWittrien
+ * @website https://github.com/mwittrien/BetterDiscordAddons/tree/master/Themes/BasicBackground
+ * @authorId 278543574059057154
+ * @BDEditor BasicBackground
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@100;300;400;500;700&display=swap');
+@import url('https://mwittrien.github.io/BetterDiscordAddons/Themes/BasicBackground/BasicBackground.css');
+
+:root {
+  --background: url('https://i.imgur.com/An528Ss.jpg');
+  --backgroundsize: cover;
+  --backgroundposition: bottom right;
+  --backgroundblur: 0px;
+  --popout: url('https://i.imgur.com/Tv2SgBb.png');
+  --popoutsize: var(--backgroundsize);
+  --backgroundposition: bottom right;
+  --popoutblur: 0px;
+  --transparencycolor: 0,0,0;
+  --accentcolor: 109,0,37;
+  --backdrop: rgb(0,0,0,0.85);
+  --textshadow: transparent;
+  --transparencyalpha: 0.34;
+  --messagetransparency: 0.36;
+  --guildchanneltransparency: 0.16;
+  --chatinputtransparency: 0;
+  --memberlisttransparency: 0.36;
+  --font: EB Garamond;
+  --textbrightest: 255,193,193;
+  --textbrighter: 249,170,170;
+  --textbright: 249,127,127;
+  --textdark: 255,82,82;
+  --textdarker: 255,43,43;
+  --textdarkest: 192,0,0;
+  --settingsicons: 1;
+  --backdropsize: var(--background-size);
+  --backdropblur: 0px;
+  --version1_0_5: none;
+}
+
+/* Any custom CSS below here */
+
+
