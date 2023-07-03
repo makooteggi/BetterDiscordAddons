@@ -2,7 +2,7 @@
  * @name PluginRepo
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 2.4.6
+ * @version 2.5.1
  * @description Allows you to download all Plugins from BD's Website within Discord
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -14,7 +14,9 @@
 
 module.exports = (_ => {
 	const changeLog = {
-		
+		"fixed": {
+			"Outdated for broken Plugins": "No longer shows broken Plugins as outdated"
+		}
 	};
 
 	return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
@@ -124,7 +126,7 @@ module.exports = (_ => {
 				let plugins = grabbedPlugins.map(plugin => {
 					if (plugin.failed) return;
 					const installedPlugin = _this.getInstalledPlugin(plugin);
-					const state = installedPlugin ? (plugin.version && _this.compareVersions(plugin.version, _this.getString(installedPlugin.version)) ? pluginStates.OUTDATED : pluginStates.INSTALLED) : pluginStates.DOWNLOADABLE;
+					const state = installedPlugin ? (plugin.version && _this.compareVersions(plugin.version, _this.getString(installedPlugin.plugin && installedPlugin.plugin.version || installedPlugin.version)) ? pluginStates.OUTDATED : pluginStates.INSTALLED) : pluginStates.DOWNLOADABLE;
 					return Object.assign(plugin, {
 						search: [plugin.name, plugin.version, plugin.authorname, plugin.description, plugin.tags].flat(10).filter(n => typeof n == "string").join(" ").toUpperCase(),
 						description: plugin.description || "No Description found",
@@ -196,7 +198,7 @@ module.exports = (_ => {
 											onClick: _ => {
 												if (loading.is) return;
 												loading = {is: false, timeout: null, amount: 0};
-												_this.loadPlugins();
+												_this.loadPlugins(true);
 											}
 										})
 									]
@@ -484,7 +486,7 @@ module.exports = (_ => {
 														this.props.downloading = true;
 														let loadingToast = BDFDB.NotificationUtils.toast(`${BDFDB.LanguageUtils.LibraryStringsFormat("loading", this.props.data.name)} - ${BDFDB.LanguageUtils.LibraryStrings.please_wait}`, {timeout: 0, ellipsis: true});
 														let autoloadKey = this.props.data.state == pluginStates.OUTDATED ? "startUpdated" : "startDownloaded";
-														BDFDB.DiscordUtils.requestFileData(this.props.data.rawSourceUrl, {timeout: 10000}, (error, buffer) => {
+														BDFDB.DiscordUtils.requestFileData(this.props.data.rawSourceUrl, (error, buffer) => {
 															if (error || !buffer) {
 																delete this.props.downloading;
 																loadingToast.close();
@@ -682,7 +684,7 @@ module.exports = (_ => {
 				if (e.instance.props && e.instance.props.section == "pluginrepo") e.instance.props.contentType = "custom";
 			}
 
-			loadPlugins () {
+			loadPlugins (forceBanner) {
 				BDFDB.DOMUtils.remove(BDFDB.dotCN._pluginrepoloadingicon);
 				cachedPlugins = BDFDB.DataUtils.load(this, "cached");
 				cachedPlugins = (typeof cachedPlugins == "string" ? cachedPlugins.split(" ") : []).map(n => parseInt(n)).filter(n => !isNaN(n));
@@ -703,7 +705,7 @@ module.exports = (_ => {
 							BDFDB.LogUtils.log("Finished fetching Plugins", this);
 							BDFDB.ReactUtils.forceUpdate(list);
 							
-							if (this.settings.general.notifyOutdated && outdatedEntries > 0) {
+							if ((this.settings.general.notifyOutdated || forceBanner) && outdatedEntries > 0) {
 								let notice = document.querySelector(BDFDB.dotCN._pluginrepooutdatednotice);
 								if (notice) notice.close();
 								BDFDB.NotificationUtils.notice(this.labels.notice_outdated_plugins.replace("{{var0}}", outdatedEntries), {
@@ -756,7 +758,7 @@ module.exports = (_ => {
 						delete plugin.release_date;
 						delete plugin.latest_source_url;
 						delete plugin.thumbnail_url;
-						BDFDB.DiscordUtils.requestFileData(plugin.rawSourceUrl, {timeout: 10000}, (error, buffer) => {
+						BDFDB.DiscordUtils.requestFileData(plugin.rawSourceUrl, (error, buffer) => {
 							if (error || !buffer) plugin.failed = true;
 							else {
 								let body = Buffer.from(buffer).toString();
@@ -768,7 +770,7 @@ module.exports = (_ => {
 									if (version) {
 										plugin.version = version;
 										const installedPlugin = this.getInstalledPlugin(plugin);
-										if (installedPlugin && this.compareVersions(version, this.getString(installedPlugin.version))) outdatedEntries++;
+										if (installedPlugin && this.compareVersions(version, this.getString(installedPlugin.plugin && installedPlugin.plugin.version || installedPlugin.version))) outdatedEntries++;
 									}
 								}
 								if (!cachedPlugins.includes(plugin.id)) newEntries++;
@@ -886,9 +888,9 @@ module.exports = (_ => {
 					case "el":		// Greek
 						return {
 							list:								"Λίστα",
-							notice_failed_plugins:				"Δεν ήταν δυνατή η φόρτωση ορισμένων Plugins [{{var0}}] ",
-							notice_new_plugins:					"Προστέθηκαν νέα Plugins [{{var0}}] στο Plugin Repo",
-							notice_outdated_plugins:			"Ορισμένα Plugins [{{var0}}] είναι παλιά"
+							notice_failed_plugins:				"Δεν ήταν δυνατή η φόρτωση ορισμένων Πρόσθετων [{{var0}}] ",
+							notice_new_plugins:					"Προστέθηκαν νέα Πρόσθετα [{{var0}}] στο Αποθετήριο Προσθέτων",
+							notice_outdated_plugins:			"Ορισμένα Πρόσθετα [{{var0}}] είναι παλαιά"
 						};
 					case "es":		// Spanish
 						return {

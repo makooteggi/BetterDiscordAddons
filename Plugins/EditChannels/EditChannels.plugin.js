@@ -2,7 +2,7 @@
  * @name EditChannels
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 4.5.2
+ * @version 4.5.3
  * @description Allows you to locally edit Channels
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -137,7 +137,7 @@ module.exports = (_ => {
 
 				BDFDB.PatchUtils.patch(this, BDFDB.LibraryModules.QuerySearchUtils, "queryChannels", {after: e => {
 					if (!e.methodArguments[0].query) return;
-					for (let id of BDFDB.LibraryModules.SortedGuildUtils.getFlattenedGuildIds().map(id => Object.keys(BDFDB.LibraryStores.ChannelStore.getMutableGuildChannelsForGuild(id))).flat()) {
+					for (let id of BDFDB.LibraryStores.SortedGuildStore.getFlattenedGuildIds().map(id => Object.keys(BDFDB.LibraryStores.ChannelStore.getMutableGuildChannelsForGuild(id))).flat()) {
 						let channel = BDFDB.LibraryStores.ChannelStore.getChannel(id);
 						if (channel && !channel.isCategory()) {
 							let category = channel.parent_id && BDFDB.LibraryStores.ChannelStore.getChannel(channel.parent_id);
@@ -991,16 +991,16 @@ module.exports = (_ => {
 						};
 					case "el":		// Greek
 						return {
-							confirm_reset:						"Είστε βέβαιοι ότι θέλετε να επαναφέρετε αυτό το κανάλι;",
-							confirm_resetall:					"Είστε βέβαιοι ότι θέλετε να επαναφέρετε όλα τα κανάλια;",
-							context_localchannelsettings:		"Ρυθμίσεις τοπικού καναλιού",
-							modal_channelname:					"Τοπικό όνομα καναλιού",
-							modal_channelicon:					"Εικόνισμα",
-							modal_colorpicker1:					"Τοπικό χρώμα καναλιού",
-							modal_header:						"Ρυθμίσεις τοπικού καναλιού",
-							modal_inheritcolor:					"Κληρονομήστε το χρώμα στα δευτερεύοντα κανάλια",
+							confirm_reset:						"Θέλετε την επαναφορά αυτού του καναλιού;",
+							confirm_resetall:					"Θέλετε την επαναφορά όλων των καναλιών;",
+							context_localchannelsettings:		"Ρυθμίσεις Τοπικού Καναλιού",
+							modal_channelname:					"Ονομασία Τοπικού Καναλιού",
+							modal_channelicon:					"Εικονίδιο",
+							modal_colorpicker1:					"Χρώμα Τοπικού Καναλιού",
+							modal_header:						"Ρυθμίσεις Τοπικού Καναλιού",
+							modal_inheritcolor:					"Εφαρμογή του χρώματος στα υπό-κανάλια",
 							modal_invalidurl:					"Μη έγκυρη διεύθυνση URL",
-							submenu_channelsettings:			"Αλλαξε ρυθμίσεις",
+							submenu_channelsettings:			"Αλλαγή Ρυθμίσεων",
 							submenu_resetsettings:				"Επαναφορά καναλιού"
 						};
 					case "es":		// Spanish
